@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TestWebSocket</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+  Web Socket Clock
+  <button onclick="start_clock()">start</button>
+  <button onclick="stop_c1ock()">stop</button>
+  <div id="box"></div>
+
+
+    <script>
+      var websocket;
+        function start_clock() {
+          console.log('start_clock');
+          var wsUri = "ws://localhost:8100/clock";
+          websocket = new WebSocket(wsUri);
+          websocket.onmessage = function (evt) {
+            last_time = evt.data;
+            writeToScreen("<span style='color: blue;'>" + last_time + "</span>");
+          };
+          websocket.onerror = function (evt) {
+            writeToScreen ('<span style="color: red;"> ' + 'ERROR:</span> ' + evt.data);
+            websocket.close();
+          };
+        }
+
+        function stop_c1ock() {
+          console.log('stop_c1ock');
+          websocket.send("stop");
+        }
+
+        function writeToScreen(value) {
+          $('#box').html(value);
+        }
+    </script>
+</body>
+</html>
