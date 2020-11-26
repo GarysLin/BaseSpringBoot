@@ -1,4 +1,4 @@
-package com.gary.cloudinteractive.webapi.websocket;
+package com.gary.cloudinteractive.webapi.ws;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -24,7 +24,6 @@ public class ClockServer {
         this.running = true;
         final SimpleDateFormat sdf = new SimpleDateFormat("h:mm:ss a");
         this.updateThread = new Thread() {
-
             public void run() {
                 while (running) {
                     String dateString = sdf.format(new Date());
