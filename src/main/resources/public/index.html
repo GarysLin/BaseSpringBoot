@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TestWebSocket</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+  Web Socket
+  <input type="text" id="wsUrl" value="ws://localhost:8100/chetRoom">
+  <button id="start" onclick="start_clock()">start</button>
+  <button id="stop" onclick="stop_c1ock()" disabled>stop</button>
+  <br><br>
+  <div id="box"></div>
+  <textarea id="w3review" name="w3review" rows="10" cols="100"></textarea>
+  <hr>
+  <input type="text" id="msg" value="test-test">
+  <button id="send" onclick="sendmessage()" disabled>send Message</button>
+
+    <script>
+      var websocket;
+        function start_clock() {
+          console.log('start_link');
+          var wsUri = $('#wsUrl').val();
+          websocket = new WebSocket(wsUri);
+          websocket.onmessage = function (evt) {
+            last_time = evt.data;
+            writeToScreen("<span style='color: blue;'>" + last_time + "</span>");
+            writeToArea(last_time + "\n");
+          };
+          websocket.onerror = function (evt) {
+            writeToScreen ('<span style="color: red;"> ' + 'ERROR:</span> ' + evt.data);
+            websocket.close();
+          };
+          $('#start').attr('disabled', true);
+          $('#stop').attr('disabled', false);
+          $('#send').attr('disabled', false);
+        }
+
+        function stop_c1ock() {
+          console.log('stop_link');
+          // websocket.send("stop");
+          websocket.close();
+          $('#start').attr('disabled', false);
+          $('#stop').attr('disabled', true);
+          $('#send').attr('disabled', true);
+        }
+
+        function sendmessage() {
+          let message = $("#msg").val();
+          let uri = "http://localhost:8100/myws/" + message;
+          $.get(
+            uri, 
+            function(data) {
+              console.log("susses");
+            }
+          )
+        }
+
+        function writeToScreen(value) {
+          $('#box').html(value);
+        }
+
+        function writeToArea(value) {
+          $('#w3review').html($('#w3review').val() + value);
+
+          var height=$("#w3review")[0].scrollHeight;
+          $("#w3review").scrollTop(height);
+        }
+    </script>
+</body>
+</html>

@@ -2,16 +2,13 @@ package com.gary.cloudinteractive.webapi.rest;
 
 import com.gary.cloudinteractive.webapi.model.Session;
 import com.gary.cloudinteractive.webapi.redis.RedisService;
-import com.gary.cloudinteractive.webapi.redis.RedisServiceImpl;
+import com.gary.cloudinteractive.webapi.ws.ChetRoomSessionManager;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -48,5 +45,18 @@ public class TestRestController {
         Session session = (Session) redisService.get(id, (long) 1800);
         log.debug("session: " + session);
         return new ResponseEntity<>(session, HttpStatus.OK);
+    }
+
+    @ApiOperation(("test03"))
+    @RequestMapping(path = "/myws/{message}", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200,
+                    message = "resultCode(0000):成功\nresultCode(9999):未預期錯誤"),
+            @ApiResponse(code = 500, message = "未預期錯誤")})
+    public ResponseEntity<?> myWebSocketMessage(
+            @ApiParam(required = true, value = "健檢編號(預約編號)", example = "111314520") @PathVariable("message") String message) throws IOException {
+        log.debug("message: " + message);
+        ChetRoomSessionManager.broadcast(message);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
