@@ -2,6 +2,7 @@ package com.gary.cloudinteractive.webapi.rest;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.gary.cloudinteractive.webapi.mapper.ZipCodeMapper;
 import com.gary.cloudinteractive.webapi.model.Message;
 import com.gary.cloudinteractive.webapi.model.Session;
 import com.gary.cloudinteractive.webapi.redis.RedisService;
@@ -37,6 +38,9 @@ public class TestRestController {
 
     @Autowired
     private HttpServletRequest request;
+
+    @Autowired
+    private ZipCodeMapper zipCodeMapper;
 
 
     @ApiOperation(("測試01"))

@@ -62,5 +62,10 @@ dependencies {
     // redis
     compile 'org.apache.commons:commons-pool2:2.6.0'
 
+    // myBatis
+    compile 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.2'
+    // mySql
+    compile 'mysql:mysql-connector-java:8.0.21'
+
     runtimeOnly 'org.springframework.boot:spring-boot-starter-tomcat'
 }

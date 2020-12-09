@@ -15,9 +15,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-public class Test {
+public class TestMethod {
     public static void main(String[] args) throws Exception {
-        Test test = new Test();
+        TestMethod test = new TestMethod();
         test.convertZipCode();
         test.convertZipCodeGson();
 
