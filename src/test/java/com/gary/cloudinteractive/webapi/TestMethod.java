@@ -11,15 +11,19 @@ import com.google.gson.JsonElement;
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 public class TestMethod {
     public static void main(String[] args) throws Exception {
-        TestMethod test = new TestMethod();
-        test.convertZipCode();
-        test.convertZipCodeGson();
+//        TestMethod test = new TestMethod();
+//        test.convertZipCode();
+//        test.convertZipCodeGson();
+        final String uuid = UUID.randomUUID().toString().replace("-", "");
+        System.out.println("uuid = " + UUID.randomUUID().toString());
+        System.out.println("uuid = " + uuid);
 
     }
 

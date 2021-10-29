@@ -39,7 +39,7 @@
     </root>
 
     <!-- LOG "ci.cathay.hcm.webapi*" at TRACE level -->
-    <logger name="com.gary.cloudinteractive.webapi" level="trace" additivity="false">
+    <logger name="com.gary.cloudinteractive.webapi" level="debug" additivity="false">
         <appender-ref ref="RollingFile" />
         <appender-ref ref="Console" />
     </logger>

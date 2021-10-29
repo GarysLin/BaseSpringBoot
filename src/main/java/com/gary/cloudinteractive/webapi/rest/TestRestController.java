@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.gary.cloudinteractive.webapi.mapper.ZipCodeMapper;
 import com.gary.cloudinteractive.webapi.model.Message;
 import com.gary.cloudinteractive.webapi.model.Session;
+import com.gary.cloudinteractive.webapi.model.mybatis.ZipCode;
 import com.gary.cloudinteractive.webapi.redis.RedisService;
 import com.gary.cloudinteractive.webapi.service.client.TestFeignService;
 import com.gary.cloudinteractive.webapi.utils.*;
@@ -13,15 +14,18 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -163,13 +167,28 @@ public class TestRestController {
             @ApiResponse(code = 500, message = "未預期錯誤")})
     public ResponseEntity<?> testI18nJson(
             @ApiParam(value = "語系", example = "en_US") @RequestParam(required = false) String lang,
+            @ApiParam(value = "語系", example = "en_US") @SafeHtml @RequestParam(required = false) String test,
             @Valid @RequestBody Message requestBdy) throws IOException {
 //        String message = LocaleUtil.get("user.appname");
 //        LocaleContextHolder.getLocale();
+        log.debug(test);
+        log.debug(requestBdy.toString());
         String doc = "doc/w01question.json";
         JSONObject w01 = I18nFileUtil.loadJsonFile(doc);
 //        JsonObject w01 = GsonI18nFileUtil.loadJsonFile(doc);
 
         return new ResponseEntity<>(w01, HttpStatus.OK);
+    }
+
+    @Transactional
+    @ApiOperation(("測試mybatis"))
+    @RequestMapping(path = "/mybatis", method = RequestMethod.POST)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200,
+                    message = "resultCode(0000):成功\nresultCode(9999):未預期錯誤"),
+            @ApiResponse(code = 500, message = "未預期錯誤")})
+    public ResponseEntity<?> mybatisTest() throws IOException {
+        List<ZipCode> data = zipCodeMapper.getAllModel();
+        return new ResponseEntity<>(data, HttpStatus.OK);
     }
 }

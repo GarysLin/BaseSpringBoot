@@ -49,7 +49,7 @@ public class HttpClientConfiguration {
         HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();
         httpClientBuilder.setConnectionManager(poolingHttpClientConnectionManager);
         //定時清理已失效連線
-        httpClientBuilder.evictExpiredConnections().evictIdleConnections(5, TimeUnit.MINUTES);
+//        httpClientBuilder.evictExpiredConnections().evictIdleConnections(5, TimeUnit.MINUTES);
         httpClientBuilder.setKeepAliveStrategy(keepAliveStrat);
 
         return httpClientBuilder;

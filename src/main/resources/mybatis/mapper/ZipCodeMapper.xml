@@ -8,21 +8,44 @@
 
     <select id="getAll" resultType="hashmap" >
         SELECT
-        <include refid="Base_Column_List" />
-        FROM ZIP_CODE
+            <include refid="Base_Column_List" />
+        FROM
+            ZIP_CODE
     </select>
 
     <select id="getAllModel" resultType="zipCode" >
         SELECT
-        <include refid="Base_Column_List" />
-        FROM ZIP_CODE
+            <include refid="Base_Column_List" />
+        FROM
+            ZIP_CODE
     </select>
 
     <select id="getOne" parameterType="int" resultType="hashmap" >
         SELECT
-        <include refid="Base_Column_List" />
-        FROM ZIP_CODE
-        WHERE id = #{id}
+            <include refid="Base_Column_List" />
+        FROM
+            ZIP_CODE
+        WHERE
+            id = #{id}
+    </select>
+
+    <select id="getOneModel" parameterType="hashmap" resultType="custZipCode" >
+        SELECT
+            a.id,
+            a.name,
+            b.zip,
+            b.name as zipName
+        FROM test_db.ZIP_CODE a
+            INNER JOIN test_db.DISTRICTS b ON a.id = b.zip_id
+        WHERE
+            1 = 1
+        <if test="id != null">
+            AND a.id = #{id}
+        </if>
+        <if test="zip != null">
+            AND b.zip = #{zip}
+        </if>
+
     </select>
 
 <!--    <insert id="insert" parameterType="com.neo.entity.UserEntity" >-->
