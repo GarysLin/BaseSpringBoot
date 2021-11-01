@@ -13,8 +13,8 @@ public class GlobalCorsConfig {
         CorsConfiguration config = new CorsConfiguration();
 
         //允許跨網域請求的來源
-//        config.addAllowedOrigin("*");
-        config.addAllowedOrigin("http://localhost");
+        config.addAllowedOrigin("*");
+//        config.addAllowedOrigin("http://localhost");
 
         //允許跨域攜帶cookie資訊，預設跨網域請求是不攜帶cookie資訊的。
         config.setAllowCredentials(true);
