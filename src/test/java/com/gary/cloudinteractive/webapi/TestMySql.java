@@ -53,7 +53,7 @@ public class TestMySql {
         Map<String, Object> param = new HashMap<>();
         param.put("id", "1");
         param.put("zip", "100");
-        CustZipCode t = zipCodeMapper.getOneModel(param);
+        ZipCode t = zipCodeMapper.getOneModel(param);
         System.out.println(t);
     }
 }

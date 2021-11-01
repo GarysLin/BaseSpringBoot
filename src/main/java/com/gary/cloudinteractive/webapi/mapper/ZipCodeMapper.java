@@ -11,6 +11,7 @@ import java.util.Map;
 public interface ZipCodeMapper {
     List<Map<String, Object>> getAll();
     List<ZipCode> getAllModel();
-    Map<String, Object> getOne(int id);
-    CustZipCode getOneModel(Map<String, Object> param);
+    ZipCode getOne(int id);
+    ZipCode getOneModel(Map<String, Object> param);
+    int insert(Map<String, Object> param);
 }

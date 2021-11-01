@@ -20,7 +20,7 @@
             ZIP_CODE
     </select>
 
-    <select id="getOne" parameterType="int" resultType="hashmap" >
+    <select id="getOne" parameterType="int" resultType="zipCode" >
         SELECT
             <include refid="Base_Column_List" />
         FROM
@@ -29,32 +29,31 @@
             id = #{id}
     </select>
 
-    <select id="getOneModel" parameterType="hashmap" resultType="custZipCode" >
+    <select id="getOneModel" parameterType="hashmap" resultType="zipCode" >
         SELECT
             a.id,
-            a.name,
-            b.zip,
-            b.name as zipName
-        FROM test_db.ZIP_CODE a
-            INNER JOIN test_db.DISTRICTS b ON a.id = b.zip_id
+            a.name
+        FROM
+            ZIP_CODE a
         WHERE
             1 = 1
         <if test="id != null">
             AND a.id = #{id}
         </if>
         <if test="zip != null">
-            AND b.zip = #{zip}
+            AND a.name = #{name}
         </if>
 
     </select>
 
-<!--    <insert id="insert" parameterType="com.neo.entity.UserEntity" >-->
-<!--        INSERT INTO-->
-<!--        users-->
-<!--        (userName,passWord,user_sex)-->
-<!--        VALUES-->
-<!--        (#{userName}, #{passWord}, #{userSex})-->
-<!--    </insert>-->
+    <insert id="insert" parameterType="hashmap" >
+        INSERT INTO ZIP_CODE (
+            name
+        )
+        VALUES (
+            #{name}
+        )
+    </insert>
 
 <!--    <update id="update" parameterType="com.neo.entity.UserEntity" >-->
 <!--        UPDATE-->

@@ -69,8 +69,8 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Cathay Healthcare Management BFF API with Swagger")
-                .description("Cathay Healthcare Management BFF API")
+                .title("Test Project with Swagger")
+                .description("Test API")
                 .version("0.0.1")
                 .build();
     }
