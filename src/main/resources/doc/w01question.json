@@ -1,0 +1,46 @@
+{
+  "a_title": "合適性調查",
+  "description": "為確保檢查品質與安全，請回答下列問題(請放心，此資訊不會用於其他用途)",
+  "questionnaireId": "W01",
+  "questions": [
+    {
+      "questionId": "W01_1",
+      "questionContent": "您是否處於懷孕中，準備要或不確定懷孕？",
+      "answers": {
+        "answerType": 1,
+        "answerList": [
+          {
+            "answerId": "W01_2_0",
+            "answerContent": "是",
+            "choiceVal": "Y"
+          },
+          {
+            "answerId": "W01_1_1",
+            "answerContent": "否",
+            "choiceVal": "N"
+          }
+        ]
+      }
+    },
+    {
+      "questionId": "W01_2",
+      "questionContent": "您是否正在哺乳中？",
+      "answers": {
+        "answerType": 1,
+        "answerList": [
+          {
+            "answerId": "W01_2_0",
+            "answerContent": "是",
+            "choiceVal": "Y"
+          },
+          {
+            "answerId": "W01_2_1",
+            "answerContent": "否",
+            "choiceVal": "N"
+          }
+        ]
+      }
+    }
+  ],
+  "lang": "zh-tw"
+}

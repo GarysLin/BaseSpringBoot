@@ -3,6 +3,9 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.10.RELEASE'
     id 'application'
     id 'java'
+
+    //引入 mybatis-generator 插件
+    id "com.thinkimi.gradle.MybatisGenerator" version "2.1.2"
 }
 
 group = 'com.cloudinteractive'
@@ -24,39 +27,68 @@ dependencyManagement {
     }
 }
 
+//引入 mybatis-generator 插件
+mybatisGenerator {
+    verbose = true
+    //configFile = './src/test/resources/myBatisGenerator.xml'
+    configFile = './src/test/resources/myBatisSingleTableGenerator.xml'
+}
+
 dependencies {
-    testCompile 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+    // redis
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    // websocket
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    // feign
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
-    compileOnly("org.springframework.boot:spring-boot-devtools")
+    implementation 'org.springframework.boot:spring-boot-devtools'
 
-    compileOnly 'org.projectlombok:lombok:1.18.6'
+    implementation 'org.projectlombok:lombok:1.18.6'
     annotationProcessor 'org.projectlombok:lombok:1.18.6'
 
-    compile 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.2'
-    compile 'io.jsonwebtoken:jjwt:0.7.0'
-    compile 'org.apache.httpcomponents:httpclient:4.5.8'
-    compile 'com.google.guava:guava:29.0-jre'
-    compile 'io.springfox:springfox-boot-starter:3.0.0'
-    compile 'com.alibaba:fastjson:1.2.54'
-    compile 'javax.validation:validation-api:2.0.1.Final'
-    compile 'org.apache.commons:commons-lang3:3.11'
-    compile 'commons-io:commons-io:2.6'
+    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.2'
+    implementation 'io.jsonwebtoken:jjwt:0.7.0'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.8'
+    implementation 'com.google.guava:guava:29.0-jre'
+    implementation 'io.springfox:springfox-boot-starter:3.0.0'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.alibaba:fastjson:1.2.54'
+    implementation 'javax.validation:validation-api:2.0.1.Final'
+    implementation 'org.apache.commons:commons-lang3:3.11'
+    implementation 'org.apache.commons:commons-text:1.9'
+    implementation 'commons-io:commons-io:2.6'
+
+    implementation group: 'org.jsoup', name: 'jsoup', version: '1.13.1'
 
     // JWK
-    compile 'com.auth0:jwks-rsa:0.14.0'
-    compile 'com.auth0:java-jwt:3.11.0'
-    compile 'org.bouncycastle:bcprov-jdk15on:1.66'
+    implementation 'com.auth0:jwks-rsa:0.14.0'
+    implementation 'com.auth0:java-jwt:3.11.0'
+    implementation 'org.bouncycastle:bcprov-jdk15on:1.66'
 
     // redis
-    compile 'org.apache.commons:commons-pool2:2.6.0'
+    implementation 'org.apache.commons:commons-pool2:2.6.0'
+
+    //HikariCP
+    implementation 'com.zaxxer:HikariCP'
+    // myBatis
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.2'
+    // mySql
+    implementation 'mysql:mysql-connector-java:8.0.21'
+    // postgtesql
+    implementation 'org.postgresql:postgresql:42.2.23'
+
+    // Flyway
+    implementation 'org.flywaydb:flyway-core:6.5.7'
+
+    //引入 mybatis-generator 插件
+    implementation 'org.mybatis.generator:mybatis-generator-core:1.3.7'
 
     runtimeOnly 'org.springframework.boot:spring-boot-starter-tomcat'
 }

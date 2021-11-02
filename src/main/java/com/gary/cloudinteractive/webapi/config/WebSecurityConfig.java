@@ -1,8 +1,10 @@
 package com.gary.cloudinteractive.webapi.config;
 
+import com.gary.cloudinteractive.webapi.filter.XSSFilter;
 import com.gary.cloudinteractive.webapi.security.JwtAuthenticationEntryPoint;
 import com.gary.cloudinteractive.webapi.security.JwtAuthenticationTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -95,4 +97,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // disable page caching
         httpSecurity.headers().cacheControl();
     }
+
+//    @Bean
+//    public FilterRegistrationBean<XSSFilter> xssPreventFilter() {
+//        FilterRegistrationBean<XSSFilter> registrationBean = new FilterRegistrationBean<>();
+//
+//        registrationBean.setFilter(new XSSFilter());
+//        registrationBean.addUrlPatterns("/*");
+//
+//        return registrationBean;
+//    }
 }

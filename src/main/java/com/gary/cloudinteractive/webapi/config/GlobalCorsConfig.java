@@ -14,17 +14,18 @@ public class GlobalCorsConfig {
 
         //允許跨網域請求的來源
         config.addAllowedOrigin("*");
+//        config.addAllowedOrigin("http://localhost");
 
         //允許跨域攜帶cookie資訊，預設跨網域請求是不攜帶cookie資訊的。
         config.setAllowCredentials(true);
 
         //允許使用那些請求方式
-        config.addAllowedMethod("*");
+        config.addAllowedMethod(CorsConfiguration.ALL);
         //config.setAllowedMethods(Arrays.asList("GET", "PUT", "POST","DELETE"));
         //config.addAllowedMethod(HttpMethod.POST);
 
         //允許哪些Header
-        config.addAllowedHeader("*");
+        config.addAllowedHeader(CorsConfiguration.ALL);
         //config.addAllowedHeader("x-firebase-auth");
 
         //可獲取哪些Header（因為跨網域預設不能取得全部Header資訊）

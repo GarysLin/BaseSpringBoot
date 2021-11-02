@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(url = "http://localhost:8100", name = "test")
+@FeignClient(url = "http://localhost:8100/api", name = "test")
 public interface TestFeignService {
     @PostMapping("/message")
     ResponseEntity<Message> getAddPackage(@RequestBody Message request);
