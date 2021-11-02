@@ -14,6 +14,6 @@ RUN gradle build --no-daemon
 
 FROM openjdk:11-jdk
 WORKDIR /app
-#COPY --from=MAVEN_BUILD /build/target/*.jar /app/springbootapi.jar
+#COPY --from=build /build/target/*.jar /app/springbootapi.jar
 COPY --from=build /gradle/build/libs/*.jar /app/springbootapi.jar
 ENTRYPOINT ["java","-jar","springbootapi.jar"]

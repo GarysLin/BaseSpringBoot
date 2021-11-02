@@ -3,3 +3,8 @@
 /build/
 /logs/
 /volumes/
+
+### mybatis generator test folder ###
+/src/test/java/com/gary/cloudinteractive/webapi/dao/
+/src/test/java/com/gary/cloudinteractive/webapi/model/
+/src/test/resources/mapper/

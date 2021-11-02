@@ -1,6 +1,5 @@
-package com.gary.cloudinteractive.webapi.mapper;
+package com.gary.cloudinteractive.webapi.dao;
 
-import com.gary.cloudinteractive.webapi.model.mybatis.CustZipCode;
 import com.gary.cloudinteractive.webapi.model.mybatis.ZipCode;
 import org.apache.ibatis.annotations.Mapper;
 

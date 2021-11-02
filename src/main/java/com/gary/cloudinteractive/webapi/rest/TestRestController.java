@@ -1,7 +1,7 @@
 package com.gary.cloudinteractive.webapi.rest;
 
 import com.alibaba.fastjson.JSONObject;
-import com.gary.cloudinteractive.webapi.mapper.ZipCodeMapper;
+import com.gary.cloudinteractive.webapi.dao.ZipCodeMapper;
 import com.gary.cloudinteractive.webapi.model.Message;
 import com.gary.cloudinteractive.webapi.model.Session;
 import com.gary.cloudinteractive.webapi.model.mybatis.ZipCode;
@@ -23,7 +23,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
 @Slf4j
