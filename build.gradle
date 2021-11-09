@@ -15,6 +15,7 @@ mainClassName = 'com.gary.cloudinteractive.webapi.WebapiApplication'
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 ext {
@@ -89,6 +90,9 @@ dependencies {
 
     //引入 mybatis-generator 插件
     implementation 'org.mybatis.generator:mybatis-generator-core:1.3.7'
+
+    //swagger to adoc
+    implementation 'io.github.swagger2markup:swagger2markup:1.3.3'
 
     runtimeOnly 'org.springframework.boot:spring-boot-starter-tomcat'
 }

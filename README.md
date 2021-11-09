@@ -13,6 +13,11 @@ to check swagger is run
 3. 執行Task mbGenerator  
 p.s. 產生出來的檔案一定不足，以產生出的檔案為Base進行改造
 
+swagger doc轉 adoc
+1. 將swagger的json檔複製到test內的api-docs.json
+2. 執行SwaggerToAdoc內的generateAsciiDocsToFile會產生swagger.adoc
+p.s. swagger.adoc可以用VSCode安裝AsciiDoc轉為PDF
+
 Note:  
 If want to test websocket, can open[http://localhost:8100/api/index.html](http://localhost:8100/api/index.html)
 in two browser and click start to link server and test chet room
