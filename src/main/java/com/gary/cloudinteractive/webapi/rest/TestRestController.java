@@ -170,7 +170,7 @@ public class TestRestController {
     @ApiOperation(("測試mybatis-R2"))
     @RequestMapping(path = "/mybatis/{id}", method = RequestMethod.GET)
     @ApiResponses(value = {
-            @ApiResponse(code = 200,
+            @ApiResponse(code = 200, response = ZipCode.class,
                     message = "resultCode(0000):成功\nresultCode(9999):未預期錯誤"),
             @ApiResponse(code = 500, message = "未預期錯誤")})
     public ResponseEntity<?> mybatisTestOne(

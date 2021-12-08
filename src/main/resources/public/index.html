@@ -48,7 +48,7 @@
 
         function sendmessage() {
           let message = $("#msg").val();
-          let uri = "http://localhost:8100/myws/" + message;
+          let uri = "http://localhost:8100/api/myws/" + message;
           $.get(
             uri, 
             function(data) {

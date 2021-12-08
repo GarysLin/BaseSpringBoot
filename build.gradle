@@ -94,5 +94,8 @@ dependencies {
     //swagger to adoc
     implementation 'io.github.swagger2markup:swagger2markup:1.3.3'
 
+    // jsp
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+
     runtimeOnly 'org.springframework.boot:spring-boot-starter-tomcat'
 }

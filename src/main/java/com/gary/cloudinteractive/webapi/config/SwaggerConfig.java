@@ -1,6 +1,7 @@
 package com.gary.cloudinteractive.webapi.config;
 
 import com.fasterxml.classmate.TypeResolver;
+import com.gary.cloudinteractive.webapi.model.mybatis.ZipCode;
 import com.google.common.collect.Lists;
 import com.google.gson.*;
 import org.springframework.context.annotation.Bean;
@@ -38,9 +39,9 @@ public class SwaggerConfig {
                 .securitySchemes(Lists.newArrayList(apiKey()))
                 .securityContexts(Collections.singletonList(securityContext()))
                 .apiInfo(apiInfo())
-                .useDefaultResponseMessages(false);
-//                .additionalModels(
-//                        resolver.resolve(TokenRequest.class));
+                .useDefaultResponseMessages(false)
+                .additionalModels(
+                        resolver.resolve(ZipCode.class));
 
     }
 
