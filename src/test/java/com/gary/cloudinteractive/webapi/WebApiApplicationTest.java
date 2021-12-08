@@ -2,6 +2,7 @@ package com.gary.cloudinteractive.webapi;
 
 import com.gary.cloudinteractive.webapi.model.Session;
 import com.gary.cloudinteractive.webapi.redis.RedisService;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.Order;
 import org.junit.runner.RunWith;
@@ -10,9 +11,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import static org.hamcrest.CoreMatchers.*;
 
 @SpringBootTest
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
 public class WebApiApplicationTest {
     private static final Logger logger = LoggerFactory.getLogger(WebApiApplicationTest.class);
 
@@ -24,7 +28,9 @@ public class WebApiApplicationTest {
     public void setSession() {
         logger.debug("redisService:" + redisService);
         Session user = new Session("01", "userName", "passWord");
-        redisService.set("01", user);
+        redisService.set("01", "test");
+//        Assert.assertThat(redisService.set("01", user) ,is("嘟嘟MD獨立博客"));
+        Assert.assertTrue(true);
     }
 
     @Test
@@ -33,6 +39,7 @@ public class WebApiApplicationTest {
         logger.debug("redisService:" + redisService);
         Session session = (Session) redisService.get("01");
         logger.debug(session.toString());
+        Assert.assertThat(session.toString() ,is("test"));
     }
 
 }

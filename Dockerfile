@@ -10,10 +10,12 @@ FROM gradle:6.6-jdk11 AS build
 ARG ENV
 WORKDIR /gradle
 COPY . .
-RUN gradle build --no-daemon
+#RUN gradle build --no-daemon
+# 跳過test
+RUN gradle build -x test --no-daemon
 
 FROM openjdk:11-jdk
 WORKDIR /app
 #COPY --from=build /build/target/*.jar /app/springbootapi.jar
-COPY --from=build /gradle/build/libs/*.jar /app/springbootapi.jar
-ENTRYPOINT ["java","-jar","springbootapi.jar"]
+COPY --from=build /gradle/build/libs/*.war /app/springbootapi.war
+ENTRYPOINT ["java","-jar","springbootapi.war"]

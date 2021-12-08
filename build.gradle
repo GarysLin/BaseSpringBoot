@@ -6,12 +6,14 @@ plugins {
 
     //引入 mybatis-generator 插件
     id "com.thinkimi.gradle.MybatisGenerator" version "2.1.2"
+    // jsp
+    id 'war'
 }
 
 group = 'com.cloudinteractive'
 version = '1.0-SNAPSHOT'
 sourceCompatibility = '11'
-mainClassName = 'com.gary.cloudinteractive.webapi.WebapiApplication'
+mainClassName = 'com.gary.cloudinteractive.webapi.WebApiApplication'
 
 repositories {
     mavenCentral()

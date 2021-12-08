@@ -2,11 +2,13 @@ package com.gary.cloudinteractive.webapi;
 
 import com.gary.cloudinteractive.webapi.dao.ZipCodeMapper;
 import com.gary.cloudinteractive.webapi.model.mybatis.ZipCode;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +17,7 @@ import java.util.Map;
 //@RunWith(SpringRunner.class)
 //@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @SpringBootTest
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
 public class TestMySql {
     @Autowired
     private ZipCodeMapper zipCodeMapper;
@@ -42,5 +44,7 @@ public class TestMySql {
         param.put("zip", "100");
 //        ZipCode t = zipCodeMapper.getOneModel(param);
 //        System.out.println(t);
+
+        Assert.assertTrue(true);
     }
 }
