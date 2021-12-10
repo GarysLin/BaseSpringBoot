@@ -28,7 +28,7 @@ public class WebApiApplicationTest {
     public void setSession() {
         logger.debug("redisService:" + redisService);
         Session user = new Session("01", "userName", "passWord");
-        redisService.set("01", "test");
+        redisService.set("01", user);
 //        Assert.assertThat(redisService.set("01", user) ,is("嘟嘟MD獨立博客"));
         Assert.assertTrue(true);
     }
@@ -39,7 +39,9 @@ public class WebApiApplicationTest {
         logger.debug("redisService:" + redisService);
         Session session = (Session) redisService.get("01");
         logger.debug(session.toString());
-        Assert.assertThat(session.toString() ,is("test"));
+        System.out.println(session.toString());
+        Assert.assertThat(session.toString() ,is("Session(sessionId=01, accessToken=userName, refreshToken=passWord)"));
+//        Assert.assertTrue(true);
     }
 
 }

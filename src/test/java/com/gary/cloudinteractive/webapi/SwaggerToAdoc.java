@@ -12,30 +12,19 @@ import io.swagger.models.Swagger;
 import io.swagger.parser.SwaggerParser;
 import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
 
 import java.io.StringReader;
 import java.nio.file.Paths;
 
-@RunWith(SpringRunner.class)
-//@SpringBootTest
-@AutoConfigureMockMvc
 public class SwaggerToAdoc {
-    @Autowired
-    private MockMvc mockMvc;
-//    @Test
+
+    public static void main(String args[]) throws Exception {
+        SwaggerToAdoc swaggerToAdoc = new SwaggerToAdoc();
+        swaggerToAdoc.generateAsciiDocsToFile();
+    }
+
     public void generateAsciiDocsToFile() throws Exception {
         String outputDir = System.getProperty("io.springfox.staticdocs.outputDir");
-//        MvcResult mvcResult = this.mockMvc.perform(get("/v2/api-docs.json")
-//                .accept(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andReturn();
 
         Swagger2MarkupConfig config = new Swagger2MarkupConfigBuilder()
                 .withMarkupLanguage(MarkupLanguage.ASCIIDOC)

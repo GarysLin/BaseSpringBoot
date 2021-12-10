@@ -10,9 +10,9 @@ FROM gradle:6.6-jdk11 AS build
 ARG ENV
 WORKDIR /gradle
 COPY . .
-#RUN gradle build --no-daemon
+RUN gradle build --no-daemon
 # 跳過test
-RUN gradle build -x test --no-daemon
+#RUN gradle build -x test --no-daemon
 
 FROM openjdk:11-jdk
 WORKDIR /app
