@@ -7,21 +7,29 @@ import com.gary.cloudinteractive.webapi.model.Session;
 import com.gary.cloudinteractive.webapi.model.mybatis.ZipCode;
 import com.gary.cloudinteractive.webapi.model.request.ZipCodeRequest;
 import com.gary.cloudinteractive.webapi.redis.RedisService;
+import com.gary.cloudinteractive.webapi.service.LoadFileService;
 import com.gary.cloudinteractive.webapi.service.client.TestFeignService;
 import com.gary.cloudinteractive.webapi.utils.*;
 import com.gary.cloudinteractive.webapi.ws.ChetRoomSessionManager;
+import feign.Response;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,15 +40,14 @@ public class TestRestController {
 
     @Autowired
     private RedisService redisService;
-
     @Autowired
     private TestFeignService testFeignService;
-
     @Autowired
     private HttpServletRequest request;
-
     @Autowired
     private ZipCodeMapper zipCodeMapper;
+    @Autowired
+    private LoadFileService loadFileService;
 
 
     @ApiOperation(("測試01"))
@@ -191,5 +198,68 @@ public class TestRestController {
         System.out.println(param);
         int data = zipCodeMapper.insert(param);
         return new ResponseEntity<>(data, HttpStatus.OK);
+    }
+
+    @ApiOperation(("下載PDF"))
+    @GetMapping(value = "/test/pdf", produces = "application/pdf")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "code(0):成功"),
+            @ApiResponse(code = 400, message = "code(-2):資料檢核有誤"),
+            @ApiResponse(code = 500, message = "未預期錯誤")})
+    public ResponseEntity<Resource> loadPdf() throws Exception {
+        log.debug("loadPdf");
+
+        InputStreamResource result = loadFileService.loadPdf();
+        log.debug("end service");
+
+        String csvFileName = "test.pdf";
+        // setting HTTP headers
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + csvFileName);
+        headers.set(HttpHeaders.CONTENT_TYPE, "application/pdf");
+
+        return new ResponseEntity<>(result, headers, HttpStatus.OK);
+    }
+
+    @ApiOperation(("下載PDF-2"))
+    @GetMapping(value = "/test/pdf2", produces = "application/pdf")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "code(0):成功"),
+            @ApiResponse(code = 400, message = "code(-2):資料檢核有誤"),
+            @ApiResponse(code = 500, message = "未預期錯誤")})
+    public ResponseEntity<byte[]> loadPdf2() throws Exception {
+        log.debug("loadPdf2");
+
+        byte[] result = loadFileService.lodeMergePdf();
+
+        String csvFileName = "test2.pdf";
+        // setting HTTP headers
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + csvFileName);
+        headers.set(HttpHeaders.CONTENT_TYPE, "application/pdf");
+
+        return new ResponseEntity<>(result, headers, HttpStatus.OK);
+    }
+
+    @ApiOperation(("下載PDF-3"))
+    @GetMapping(value = "/test/pdf3", produces = "application/pdf")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "code(0):成功"),
+            @ApiResponse(code = 400, message = "code(-2):資料檢核有誤"),
+            @ApiResponse(code = 500, message = "未預期錯誤")})
+    public ResponseEntity<Resource> loadPdf3() throws Exception {
+        log.debug("loadPdf2");
+
+        final Response response = testFeignService.getPdf();
+        final Response.Body body = response.body();
+        final InputStream inputStream = body.asInputStream();
+
+        String csvFileName = "test2.pdf";
+        // setting HTTP headers
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + csvFileName);
+        headers.set(HttpHeaders.CONTENT_TYPE, "application/pdf");
+
+        return new ResponseEntity<>(new InputStreamResource(inputStream), headers, HttpStatus.OK);
     }
 }

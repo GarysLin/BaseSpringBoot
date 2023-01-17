@@ -1,6 +1,7 @@
 package com.gary.cloudinteractive.webapi.service.client;
 
 import com.gary.cloudinteractive.webapi.model.Message;
+import feign.Response;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,4 +13,6 @@ public interface TestFeignService {
     @PostMapping("/message")
     ResponseEntity<Message> getAddPackage(@RequestBody Message request);
 
+    @GetMapping("/test/pdf2")
+    Response getPdf();
 }

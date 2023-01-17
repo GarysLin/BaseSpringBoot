@@ -5,9 +5,19 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.server.ServerHttpRequest;
+import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketHandler;
+import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.config.annotation.*;
+import org.springframework.web.socket.handler.TextWebSocketHandler;
+import org.springframework.web.socket.server.HandshakeInterceptor;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
+
+import java.io.IOException;
+import java.util.Map;
 
 @Slf4j
 @Configuration
@@ -28,8 +38,49 @@ public class WebSocketConfig implements WebSocketConfigurer {
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         log.info("registerWebSocketHandlers ok");
-        registry.addHandler(chetRoomHandler, "chetRoom")
+        registry.addHandler(chetRoomHandler, "/websocket/chetRoom/*")
+                .addInterceptors(auctionInterceptor())
                 .setAllowedOrigins("*");
+    }
+
+    /**
+     * 權限檢核
+     * @return
+     */
+    @Bean
+    public HandshakeInterceptor auctionInterceptor() {
+        return new HandshakeInterceptor() {
+            @Override
+            public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response,
+                                           WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
+
+                // Get the URI segment corresponding to the auction id during handshake
+                String path = request.getURI().getPath();
+                String auctionId = path.substring(path.lastIndexOf('/') + 1);
+
+                // This will be added to the websocket session
+                attributes.put("auctionId", auctionId);
+                return true;
+            }
+
+            @Override
+            public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response,
+                                       WebSocketHandler wsHandler, Exception exception) {
+                // Nothing to do after handshake
+            }
+        };
+    }
+
+    @Bean
+    public WebSocketHandler auctionHandler() {
+        return new TextWebSocketHandler() {
+            public void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
+                // Retrieve the auction id from the websocket session (copied during the handshake)
+                String auctionId = (String) session.getAttributes().get("auctionId");
+
+                // Your business logic...
+            }
+        };
     }
 
 //    @Override

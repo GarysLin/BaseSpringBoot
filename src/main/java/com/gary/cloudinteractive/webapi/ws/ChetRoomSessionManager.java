@@ -14,6 +14,8 @@ public class ChetRoomSessionManager {
      */
     private static ConcurrentHashMap<String, WebSocketSession> SESSION_POOL = new ConcurrentHashMap<>();
 
+    private static ConcurrentHashMap<String, String> USER_SESSION_POOL = new ConcurrentHashMap<>();
+
     /**
      * 增加 session
      * @param key

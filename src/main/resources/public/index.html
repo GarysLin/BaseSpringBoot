@@ -19,10 +19,12 @@
 
     <script>
       var websocket;
+      var token = "tokenxxx";
         function start_clock() {
           console.log('start_link');
           var wsUri = $('#wsUrl').val();
           websocket = new WebSocket(wsUri);
+          websocket.onopen = () => websocket.send(token);
           websocket.onmessage = function (evt) {
             last_time = evt.data;
             writeToScreen("<span style='color: blue;'>" + last_time + "</span>");
